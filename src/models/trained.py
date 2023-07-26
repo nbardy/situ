@@ -80,33 +80,13 @@ class ImageNet_class_conditional_generator():
     # This is a version of the above function,
     # it will return logits.
     # it will optionally generate images and return
-    def generate(self, input_tokens, rng, start_iter=0, num_iterations=16, return_images=False):
-        def tokens_to_logits(seq):
-            logits = self.transformer_model.apply(self.transformer_variables, seq, deterministic=True)
-            logits = logits[..., :self.maskgit_cf.vqvae.codebook_size]
-            return logits
-    
-        output_tokens = parallel_decode.decode(
-                input_tokens,
-                rng,
-                tokens_to_logits,
-                num_iter=num_iterations,
-                choice_temperature=self.maskgit_cf.sample_choice_temperature,
-                mask_token_id=self.maskgit_cf.transformer.mask_token_id,
-                start_iter=start_iter,
-                )
-        
-        output_tokens = jnp.reshape(output_tokens[:, -1, 1:], [-1, self.transformer_latent_size, self.transformer_latent_size])
 
-        gen_images = None
-        if return_images:
-            gen_images = self.tokenizer_model.apply(
-                self.tokenizer_variables,
-                output_tokens,
-                method=self.tokenizer_model.decode_from_indices,
-                mutable=False)
-    
-        return output_tokens, gen_images
+    # This
+    def generate_logits(self, seq):
+        logits = self.transformer_model.apply(self.transformer_variables, seq, deterministic=True)
+        logits = logits[..., :self.maskgit_cf.vqvae.codebook_size]
+        
+        return logits
     
 
     def create_input_tokens_normal(self, label):

@@ -168,4 +168,3 @@ def decode(inputs,
   # Run while loop and get final beam search state.
   final_state = lax.while_loop(loop_cond_fn, loop_body_fn, init_state)
   return final_state.final_seqs
-
