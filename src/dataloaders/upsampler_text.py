@@ -12,7 +12,7 @@ from open_clip_jax import tokenize
 
 
 class AllCropsStreamingSuperResolutionDataset(Dataset):
-    def __init__(self, width, height, crops, subject_crop, downsize_method, flatten_crops, upscale_factor):
+    def __init__(self, width, height, crops, subject_crop, downsize_method, flatten_crops, upscale_factor, with_text=False):
         self.dataset = load_dataset(
             "laion/laion-high-resolution", streaming=True)
         self.width = width
@@ -22,6 +22,7 @@ class AllCropsStreamingSuperResolutionDataset(Dataset):
         self.downsize_method = downsize_method
         self.flatten_crops = flatten_crops
         self.upscale_factor = upscale_factor
+        self.with_text = with_text
 
     def __len__(self):
         return len(self.dataset)
@@ -39,8 +40,9 @@ class AllCropsStreamingSuperResolutionDataset(Dataset):
             image, self.width, self.height, self.crops)
 
         # Tokenizing the text
-        text = entry['TEXT']
-        text_embedding = tokenize([text])._numpy()
+        if self.with_text is True:
+            text = entry['TEXT']
+            text_embedding = tokenize([text])._numpy()
 
         # Use transform function to generate the different image versions
         image_input_small, image_input_full, image_input_rescaled_full = self._image_processing(

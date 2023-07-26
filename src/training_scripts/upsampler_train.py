@@ -6,7 +6,7 @@ from maskgit.nets import vqgan_tokenizer, maskgit_transformer
 from maskgit.configs import maskgit_class_cond_config
 from maskgit.utils import restore_from_path
 
-from libml.losses import weighted_sequence_cross_entropy_loss
+from libml.losses import  sigmoid_cross_entropy_with_logits
 
 from dataloaders.upsampler_text import get_dataset
 
@@ -41,7 +41,7 @@ scheduler = ...  # Add your scheduler if needed
 # Define loss function based on the provided inspiration
 def loss_fn(params, model, images, labels):
     logits, _ = model.apply(params, images, return_logits=True, labels=labels)
-    return weighted_sequence_cross_entropy_loss(labels=labels, logits=logits, weights=..., label_smoothing=...)
+    return sigmoid_cross_entropy_with_logits(labels=labels, logits=logits)
 
 # Training Loop
 for epoch in range(NUM_EPOCHS):
