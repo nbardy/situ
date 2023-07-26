@@ -8,6 +8,7 @@ Step 1. Take the approach of modeling discrete tokens in the VQ-GAN domain of ma
 
 - [ ] Write JAX training Code for finetuning existing maskGIT
 - [ ] Train Baseline
+      - [ ] Finetune the transformer on the upscaling task.
 - [ ] Add cross conditioning with text
 - [ ] Add flash attention with jax
 
