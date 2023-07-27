@@ -67,3 +67,7 @@ def draw_image_with_bbox(image, bbox):
   ax.axis("off")
   plt.title("input")
   plt.show()
+
+
+def cosine_schedule(t):
+    return jnp.cos(t * math.pi * 0.5)

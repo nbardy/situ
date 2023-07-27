@@ -6,10 +6,10 @@ import jax.numpy as jnp
 import numpy as np
 from PIL import ImageFilter, Image
 
-from maskgit.nets import vqgan_tokenizer, maskgit_transformer
-from maskgit.configs import maskgit_class_cond_config
-from maskgit.libml import parallel_decode
-from maskgit.utils import restore_from_path
+from . import vqgan_tokenizer, maskgit_transformer
+from ..configs import maskgit_class_cond_config
+from ..libml import parallel_decode
+from ..utils import restore_from_path
 
 #TODO: this can be usedforediting aswell; justneedto pass in a different start_iter
 #TODO: perhaps move rng out of  this class?

@@ -23,8 +23,8 @@ from typing import Any
 import flax.linen as nn
 import jax
 import jax.numpy as jnp
-from maskgit.libml import losses
-from maskgit.nets import layers
+from libml import losses
+from models import layers
 import ml_collections
 
 
