@@ -5,6 +5,7 @@ jaxlib
 flax
 tensorflow
 # git+https://github.com/BobMcDear/open-clip-jax.git
-git+https://github.com/kingoflolz/CLIP_JAX --no-deps
+# git+https://github.com/kingoflolz/CLIP_JAX --no-deps
+# git+https://github.com/deepmind/dm-haiku
 # For openclip
 tensorflow-text

@@ -11,9 +11,10 @@ from typing import Dict
 import numpy as np
 from PIL import Image
 
-import clip_jax
+from transformers import AutoTokenizer, FlaxCLIPModel
 
-image_fn, text_fn, jax_params, jax_preprocess = clip_jax.load('ViT-B/32', "cpu")
+clip_model = FlaxCLIPModel.from_pretrained("openai/clip-vit-base-patch32")
+clip_tokenizer = AutoTokenizer.from_pretrained("openai/clip-vit-base-patch32")
 
 
 # 1. Custom PyTorch Dataset
@@ -47,15 +48,16 @@ class AllCropsStreamingSuperResolutionDataset(Dataset):
         crops = self._generate_center_biased_crops(
             image, self.width, self.height, self.crops)
 
+        text_embedding = None
         # Tokenizing the text
         if self.with_text is True:
             text = entry['TEXT']
             # text_embedding = tokenize([text])._numpy()
             # image = np.expand_dims(jax_preprocess(Image.open("CLIP.png")), 0)
             # image_embed = image_fn(jax_params, image)
-            text = clip_jax.tokenize(["a diagram", "a dog", "a cat"])
+            inputs = clip_tokenizer(["a photo of a cat", "a photo of a dog"], padding=True, return_tensors="np")
+            text_embedding = clip_model.get_text_features(**inputs)
 
-            text_embedding = text_fn(jax_params, text)
 
 
         # Use transform function to generate the different image versions
