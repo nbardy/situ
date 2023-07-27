@@ -14,8 +14,8 @@
 
 r"""Configuration and hyperparameter sweeps for maskgit training."""
 
-from maskgit.configs import base_config
-from maskgit.configs import vqgan_config
+from configs import base_config
+from configs import vqgan_config
 import ml_collections
 
 
