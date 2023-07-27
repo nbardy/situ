@@ -1,4 +1,10 @@
+# TODO: Add pinned versions
 ml-collections
 jax
 jaxlib
 flax
+tensorflow
+# git+https://github.com/BobMcDear/open-clip-jax.git
+git+https://github.com/kingoflolz/CLIP_JAX --no-deps
+# For openclip
+tensorflow-text

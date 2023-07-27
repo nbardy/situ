@@ -18,7 +18,7 @@ import flax
 import jax
 from jax import lax
 import jax.numpy as jnp
-from maskgit.libml import mask_schedule
+from libml import mask_schedule
 
 # Confidence score for known tokens to avoid masking or repredicting them.
 # Here we don't use 1.0 because the upper bounder of the probability can be

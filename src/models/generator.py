@@ -7,9 +7,9 @@ import numpy as np
 from PIL import ImageFilter, Image
 
 from . import vqgan_tokenizer, maskgit_transformer
-from ..configs import maskgit_class_cond_config
-from ..libml import parallel_decode
-from ..utils import restore_from_path
+from configs import maskgit_class_cond_config
+from libml import parallel_decode
+from utils import restore_from_path
 
 #TODO: this can be usedforediting aswell; justneedto pass in a different start_iter
 #TODO: perhaps move rng out of  this class?

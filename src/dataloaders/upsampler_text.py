@@ -6,7 +6,15 @@ from torchvision.transforms import functional as F
 import torch
 
 from typing import Dict
-from open_clip_jax import tokenize
+# from open_clip_jax import tokenize
+
+import numpy as np
+from PIL import Image
+
+import clip_jax
+
+image_fn, text_fn, jax_params, jax_preprocess = clip_jax.load('ViT-B/32', "cpu")
+
 
 # 1. Custom PyTorch Dataset
 
@@ -42,7 +50,13 @@ class AllCropsStreamingSuperResolutionDataset(Dataset):
         # Tokenizing the text
         if self.with_text is True:
             text = entry['TEXT']
-            text_embedding = tokenize([text])._numpy()
+            # text_embedding = tokenize([text])._numpy()
+            # image = np.expand_dims(jax_preprocess(Image.open("CLIP.png")), 0)
+            # image_embed = image_fn(jax_params, image)
+            text = clip_jax.tokenize(["a diagram", "a dog", "a cat"])
+
+            text_embedding = text_fn(jax_params, text)
+
 
         # Use transform function to generate the different image versions
         image_input_small, image_input_full, image_input_rescaled_full = self._image_processing(

@@ -14,7 +14,7 @@
 
 """Configuration and hyperparameter sweeps vqgan trainer."""
 
-from maskgit.configs import base_config
+from configs import base_config
 import ml_collections
 
 
